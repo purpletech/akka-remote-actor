@@ -30,11 +30,11 @@ object JobNode {
   import common.Configurations._
   def main(args: Array[String]) = {
     val config = getConfig("job.conf")
-    val coordinatorCf = config.getConfig("job")
-    val actorName = coordinatorCf.getString("actorName")
-    val sysName = coordinatorCf.getString("actorSystemName")
+    val jobNodeCf = config.getConfig("job")
+    val actorName = jobNodeCf.getString("actorName")
+    val sysName = jobNodeCf.getString("actorSystemName")
 
     val system = ActorSystem(sysName, config)
-    val coodinator = system.actorOf(Props[JobNode], name = actorName)
+    val jobNode = system.actorOf(Props[JobNode], name = actorName)
   }
 }

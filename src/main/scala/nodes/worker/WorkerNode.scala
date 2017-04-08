@@ -15,13 +15,13 @@ import com.typesafe.config.Config
 import common.messages._
 
 class WorkerNode(config: Config) extends Actor with ActorLogging {
-  val coordinatorCf = config.getConfig("job")
-  val coHost = coordinatorCf.getString("host")
-  val coPort = coordinatorCf.getString("port")
-  val coName = coordinatorCf.getString("actorName")
-  val coSysName = coordinatorCf.getString("actorSystemName")
-  val coUri = "akka.tcp://" + coSysName + "@" + coHost + ":" + coPort + "/user/" + coName
-  println("Job node path: " + coUri)
+  val jobNodeCf = config.getConfig("job")
+  val jobHost = jobNodeCf.getString("host")
+  val jobPort = jobNodeCf.getString("port")
+  val jobActorName = jobNodeCf.getString("actorName")
+  val jobSysName = jobNodeCf.getString("actorSystemName")
+  val jobActorPath = "akka.tcp://" + jobSysName + "@" + jobHost + ":" + jobPort + "/user/" + jobActorName
+  println("Job node path: " + jobActorPath)
 
   override def preStart(): Unit = {
     println("Worker created: " + self.path)
@@ -31,7 +31,7 @@ class WorkerNode(config: Config) extends Actor with ActorLogging {
   def checkForResource() {
     val timout = new Timeout(5 seconds)
     try {
-      val job = Await.result(context.actorSelection(coUri).resolveOne()(timout), 5 seconds)
+      val job = Await.result(context.actorSelection(jobActorPath).resolveOne()(timout), 5 seconds)
       job ! WorkerStarted
     } catch {
       case _: TimeoutException|ActorNotFound(_) => {
