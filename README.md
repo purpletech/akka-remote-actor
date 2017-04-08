@@ -6,9 +6,9 @@
 5. Choose 2 for WorkerNode
 6. Run command "sbt test" for running test cases
 
-##JobNode
+## JobNode
 There should be only one job node started. The job node holds only one print job. It listens to messages from worker nodes. Job nodes send print job to the first worker node from which it receives "Workerstarted" message
 
-##WorkerNode
+## WorkerNode
 Multiple worker nodes can be started. If the job node is not alive when a worker nodes starts up, the worker node will wait for job node to start. Only one worker node gets the print job from the job node.
 
