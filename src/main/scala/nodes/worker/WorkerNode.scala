@@ -21,7 +21,7 @@ class WorkerNode(config: Config) extends Actor with ActorLogging {
   val coName = coordinatorCf.getString("actorName")
   val coSysName = coordinatorCf.getString("actorSystemName")
   val coUri = "akka.tcp://" + coSysName + "@" + coHost + ":" + coPort + "/user/" + coName
-  println("Coordinator path: " + coUri)
+  println("Job node path: " + coUri)
 
   override def preStart(): Unit = {
     println("Worker created: " + self.path)

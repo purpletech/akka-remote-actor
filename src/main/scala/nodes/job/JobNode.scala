@@ -11,7 +11,6 @@ import common.messages._
 
 class JobNode extends Actor with ActorLogging {
   var Jobs = List(new Job("We are started"))
-  val workes = List[ActorRef]()
   override def preStart(): Unit = {
     println("Job node started: " + self.path)
   }
