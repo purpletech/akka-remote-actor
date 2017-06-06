@@ -1,4 +1,4 @@
-name := "myActors"
+name := "AkkaRemoteActors"
 
 version := "1.0"
 
